@@ -1,6 +1,6 @@
 # Terraform Installer - Automated Terraform Installation
 
-## Automatically Download, Extract and Install Latest (or Specific) Version
+## Automatically Download, Extract and Install Latest or Specific Version
 
 ---
 
@@ -13,6 +13,12 @@ The script delivers substantial time savings over the official method which requ
 - visit website, find version for OS/CPU and download
 - find and extract downloaded zip file
 - copy 'terraform' binary to location on PATH
+
+### REQUIREMENTS
+
+- System with Bash Shell (Linux, macOS, Windows Subsystem for Linux)
+- `curl`
+- `unzip` - the downloads from hashicorp.io are in zip format
 
 ### Script Process
 
