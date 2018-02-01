@@ -18,7 +18,7 @@ The script delivers substantial time savings over the official method which requ
 
 - System with Bash Shell (Linux, macOS, Windows Subsystem for Linux)
 - `curl`
-- `unzip` - the downloads from hashicorp.io are in zip format
+- `unzip` - the downloads from terraform.io are in zip format
 
 ### Script Process
 
@@ -29,7 +29,7 @@ The script delivers substantial time savings over the official method which requ
 - Calculates Download URL based on Version, OS and CPU-Architecture
 - Verifies URL Validity before Downloading in Case:
   - VERSION incorrectly specified with `-i`
-  - Download URL Format Changed on Hashicorp Website
+  - Download URL Format Changed on terraform Website
 - Determines Installation Destination
   - Performed before Download/Install Process in case User selects `abort`
 - Installation Process
