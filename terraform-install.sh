@@ -4,18 +4,25 @@
 #   MIT License - Copyright (c) 2018  Robert Peteuil  @RobertPeteuil
 #
 #     Automatically Download, Extract and Install
-#        Latest (or Specific) Version of Terraform
+#        Latest or Specific Version of Terraform
 #
 #   from: https://github.com/robertpeteuil/terraform-installer
 
 
 scriptname=$(basename "$0")
+scriptbuildnum="1.0.0"
+scriptbuilddate="2018-02-01"
+
+displayVer() {
+  echo -e "${scriptname}  ver ${scriptbuildnum} - ${scriptbuilddate}"
+}
 
 usage() {
-  echo -e "Tarraform Installer - install latest (or specified) version\n"
-  echo -e "usage: ${scriptname} [-i VERSION] [-h]\n"
-  echo -e "     -i VERSION\t: specify version to be installed in format '0.11.1' (OPTIONAL)"
-  echo -e "     -h\t\t: display help"
+  [[ "$1" ]] && echo -e "Download and Install Tarraform - Latest Version unless '-i' specified\n"
+  echo -e "usage: ${scriptname} [-i VERSION] [-h] [-v]"
+  echo -e "     -i VERSION\t: specify version to install in format '0.11.1' (OPTIONAL)"
+  echo -e "     -h\t\t: help"
+  echo -e "     -v\t\t: display ${scriptname} version"
 }
 
 if ! unzip -h 2&> /dev/null; then
@@ -23,12 +30,13 @@ if ! unzip -h 2&> /dev/null; then
   exit 1
 fi
 
-while getopts ":i:h" arg; do
+while getopts ":i:hv" arg; do
   case "${arg}" in
     i)  VERSION=${OPTARG};;
-    h)  usage; exit;;
-    \?) echo -e "Error - Invalid option: $OPTARG\n"; usage; exit;;
-    :)  echo "Error - $OPTARG requires an argument"; echo; usage; exit 1;;
+    h)  usage x; exit;;
+    v)  displayVer; exit;;
+    \?) echo -e "Error - Invalid option: $OPTARG"; usage; exit;;
+    :)  echo "Error - $OPTARG requires an argument"; usage; exit 1;;
   esac
 done
 shift $((OPTIND-1))
@@ -53,7 +61,7 @@ LINKVALID=$(curl -o /dev/null --silent --head --write-out '%{http_code}\n' "$LIN
 # VERIFY LINK VALIDITY
 if [[ "$LINKVALID" != 200 ]]; then
   echo -e "Cannot Install - Download URL Invalid"
-  echo -e "\n   Parameters:"
+  echo -e "\nParameters:"
   echo -e "\tVER:\t$VERSION"
   echo -e "\tOS:\t$OS"
   echo -e "\tPROC:\t$PROC"
