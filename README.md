@@ -10,7 +10,7 @@
 
 The **terraform-install** script automates the process of downloading and installing Terraform.  In essence, it automates the installation of an automation tool.
 
-This provides a ideal method for installation on hew hosts, installing updates and downgrading if necessary.  By default, the latest version is installed, but a specific version can be specified using `-i`.
+This provides a ideal method for installation on new hosts, installing updates and even downgrading if necessary.  By default, the latest version is installed, but a specific version can be specified using `-i`.
 
 ### Official Installation Process
 
@@ -23,7 +23,6 @@ This provides a ideal method for installation on hew hosts, installing updates a
 
 - Download the installer from this repo
 - Run the script
-- Keep the installer on the machine for installing updates
 
 ``` shell
 curl -fsSL https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh -o terraform-install.sh; chmod +x terraform-install.sh
@@ -37,7 +36,7 @@ curl -fsSL https://raw.github.com/robertpeteuil/terraform-installer/master/terra
 
 - System with Bash Shell (Linux, macOS, Windows Subsystem for Linux)
 - `curl`
-- `unzip` - downloads from terraform.io are in zip format
+- `unzip` - terraform downloads in zip format
 
 ### Script Process Details
 
