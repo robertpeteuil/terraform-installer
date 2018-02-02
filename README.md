@@ -8,7 +8,7 @@
 
 ---
 
-The **terraform-installer** script automates process of downloading and installing terraform using bash.  It provides a quick method for installation on hew hosts,  installing updates and downgrading if necessary.  By default, the latest version is installed.  A specific version can be installed by using the parameter `-i`.
+The **terraform-installer** script automates process of downloading and installing terraform using bash.  It provides a quick method for installation on hew hosts,  installing updates and downgrading if necessary.  By default, the latest version is installed, but a specific version can be specified using `-i`.
 
 The automates the official method which requires manually downloading, extracting and installing the binary (even for updates).
 
