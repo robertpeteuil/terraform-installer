@@ -8,9 +8,9 @@
 
 ---
 
-The **terraform-install** script automates process of downloading and installing terraform.  In essence, it automates the installation of an automation tool.
+The **terraform-install** script automates the process of downloading and installing Terraform.  In essence, it automates the installation of an automation tool.
 
-This provides a quick method for installation on hew hosts, installing updates and downgrading if necessary.  By default, the latest version is installed, but a specific version can be specified using `-i`.
+This provides a ideal method for installation on hew hosts, installing updates and downgrading if necessary.  By default, the latest version is installed, but a specific version can be specified using `-i`.
 
 ### Official Installation Process
 
