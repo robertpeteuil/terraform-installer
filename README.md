@@ -8,7 +8,14 @@
 
 ---
 
-The **terraform-install** script automates the process of downloading and installing Terraform.  This provides a ideal method for installation on new hosts, installing updates and even downgrading if necessary.  By default, the latest version is installed or a specific version can be specified using `-i`.
+The **terraform-install** script automates the process of downloading and installing Terraform.  This provides a ideal method for installation on new hosts, installing updates and even downgrading if necessary.  This script detects or determines the OS and CPU-Architecture.
+
+Options:
+
+- `-i VERSION` - install specific version
+- `-a` - always use sudo to install to /usr/local/bin (without prompting for destination)
+  - set as default by uncommenting line 12 to set `sudoInstall=true`
+  - user may need to enter sudo password unless password-less sudo is enabled
 
 ### Official Installation Process
 
@@ -26,8 +33,11 @@ The **terraform-install** script automates the process of downloading and instal
 curl -fsSL https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh -o terraform-install.sh; chmod +x terraform-install.sh
 ./terraform-install.sh
 
-# Alternatively a specific version can be installed using -i
+# Specific version install using -i
 ./terraform-install.sh -i 0.11.1
+
+# Automatic sudo install to /usr/local/bin/
+./terraform-install.sh -a
 ```
 
 ### System Requirements
@@ -46,7 +56,7 @@ curl -fsSL https://raw.github.com/robertpeteuil/terraform-installer/master/terra
 - Verifies URL Validity before Downloading in Case:
   - VERSION incorrectly specified with `-i`
   - Download URL Format Changed on terraform Website
-- Determines Installation Destination
+- Determines Install Destination
   - Performed before Download/Install Process in case User selects `abort`
 - Installation Process
   - Download, Extract, Install, Cleanup and Display Results
