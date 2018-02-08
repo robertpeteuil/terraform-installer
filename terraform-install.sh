@@ -8,10 +8,12 @@
 #
 #   from: https://github.com/robertpeteuil/terraform-installer
 
+# Uncomment line below to always use 'sudo' to install to /usr/local/bin/
+# sudoInstall=true
 
 scriptname=$(basename "$0")
-scriptbuildnum="1.0.0"
-scriptbuilddate="2018-02-01"
+scriptbuildnum="1.1.0"
+scriptbuilddate="2018-02-08"
 
 displayVer() {
   echo -e "${scriptname}  ver ${scriptbuildnum} - ${scriptbuilddate}"
@@ -21,6 +23,7 @@ usage() {
   [[ "$1" ]] && echo -e "Download and Install Tarraform - Latest Version unless '-i' specified\n"
   echo -e "usage: ${scriptname} [-i VERSION] [-h] [-v]"
   echo -e "     -i VERSION\t: specify version to install in format '0.11.1' (OPTIONAL)"
+  echo -e "     -a\t\t: always use sudo to install to \\usr\\local\\bin\\"
   echo -e "     -h\t\t: help"
   echo -e "     -v\t\t: display ${scriptname} version"
 }
@@ -30,8 +33,9 @@ if ! unzip -h 2&> /dev/null; then
   exit 1
 fi
 
-while getopts ":i:hv" arg; do
+while getopts ":i:ahv" arg; do
   case "${arg}" in
+    a)  sudoInstall=true;;
     i)  VERSION=${OPTARG};;
     h)  usage x; exit;;
     v)  displayVer; exit;;
@@ -73,6 +77,10 @@ fi
 if [[ -w "/usr/local/bin" ]]; then
   BINDIR="/usr/local/bin"
   CMDPREFIX=""
+  STREAMLINED=true
+elif [[ "$sudoInstall" ]]; then
+  BINDIR="/usr/local/bin"
+  CMDPREFIX="sudo "
   STREAMLINED=true
 else
   echo -e "Tarraform Installer\n"
