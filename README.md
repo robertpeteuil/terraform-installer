@@ -12,10 +12,11 @@ The **terraform-install** script automates the process of downloading and instal
 
 Options:
 
-- `-i VERSION` - install specific version
-- `-a` - always use sudo to install to /usr/local/bin (without prompting for destination)
-  - set as default by uncommenting line 12 to set `sudoInstall=true`
-  - user may need to enter sudo password unless password-less sudo is enabled
+- install specific version: `-i VERSION`
+- automatically `sudo` install to /usr/local/bin: `-a`
+  - prevents user prompt asking for install destination
+  - user must enter sudo password unless NOPASSWD is enabled
+  - uncomment line 12 to make default (`sudoInstall=true`)
 
 ### Official Installation Process
 
