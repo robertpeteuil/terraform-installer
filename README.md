@@ -16,7 +16,7 @@ Options:
 - automatically `sudo` install to /usr/local/bin: `-a`
   - prevents user prompt asking for install destination
   - user must enter sudo password unless NOPASSWD is enabled
-  - uncomment line 12 to make default this the default behavior (`sudoInstall=true`)
+  - uncomment line 12 to make this the default behavior (`sudoInstall=true`)
 
 ### Official Installation Process
 
