@@ -68,9 +68,9 @@ CPU architecture is detected for each OS accordingly:
 
 - Linux / Windows (WSL since this is a Bash script)
   - detected with `lscpu` or by inspecting `/proc/cpuinfo`
-- macOS - uses Default - only terraform CPU Arch available on macOS is `AMD64`
-- Default Value - `AMD64`
+- macOS - uses Default Arch `amd64` as it's the only version available on macOS
+- Default Value - `amd64`
 
 ### License
 
-MIT License - Copyright (c) 2018  Robert Peteuil  @RobertPeteuil
+MIT License - Copyright (c) 2018    Robert Peteuil
