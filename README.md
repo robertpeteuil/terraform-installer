@@ -66,7 +66,8 @@ curl -fsSL https://raw.github.com/robertpeteuil/terraform-installer/master/terra
 
 CPU architecture is detected for each OS accordingly:
 
-- Linux / Windows (WSL since this is a Bash script) - detected with dpkg
+- Linux / Windows (WSL since this is a Bash script)
+  - detected with `lscpu` or by inspecting `/proc/cpuinfo`
 - macOS - uses Default - only terraform CPU Arch available on macOS is `AMD64`
 - Default Value - `AMD64`
 

@@ -12,8 +12,8 @@
 # sudoInstall=true
 
 scriptname=$(basename "$0")
-scriptbuildnum="1.1.0"
-scriptbuilddate="2018-02-08"
+scriptbuildnum="1.1.1"
+scriptbuilddate="2018-02-17"
 
 displayVer() {
   echo -e "${scriptname}  ver ${scriptbuildnum} - ${scriptbuilddate}"
@@ -50,12 +50,15 @@ if [[ -z "$VERSION" ]]; then
   VERSION=$(curl -s https://api.github.com/repos/hashicorp/terraform/releases/latest | awk '/tag_name/ {b = gensub(/("|,|v)/, "", "g", $2); print b}')
 fi
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
-case "$OS" in
-  linux)
-    PROC=$(dpkg --print-architecture);;
-  *)
-    PROC="amd64";;
-esac
+if [[ "$OS" == "linux" ]]; then
+  PROC=$(lscpu 2> /dev/null | awk '/Architecture/ {if($2 == "x86_64") {print "amd64"; exit} else {print "386"; exit}}')
+  if [[ -z $PROC ]]; then
+    PROC=$(cat /proc/cpuinfo | awk '/flags/ {if($0 ~ /lm/) {print "arm64"; exit} else {print "386"; exit}}')
+  fi
+else
+  PROC="amd64"
+fi
+[[ $PROC =~ arm ]] && PROC="arm"  # tarraform only lists arm in the url
 
 # CREATE FILENAME AND DOWNLOAD LINK BASED ON GATHERED PARAMETERS
 FILENAME="terraform_${VERSION}_${OS}_${PROC}.zip"
