@@ -73,4 +73,4 @@ CPU architecture is detected for each OS accordingly:
 
 ### License
 
-MIT License - Copyright (c) 2018    Robert Peteuil
+Apache 2.0 License - Copyright (c) 2018    Robert Peteuil
