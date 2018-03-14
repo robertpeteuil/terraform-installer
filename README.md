@@ -28,10 +28,15 @@ Options:
 ### Installation with this Installer
 
 - Download the installer from this repo
-- Run the script
 
 ``` shell
 curl -fsSL https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh -o terraform-install.sh; chmod +x terraform-install.sh
+./terraform-install.sh
+```
+
+- Run the script
+
+``` shell
 ./terraform-install.sh
 
 # Specific version install using -i
