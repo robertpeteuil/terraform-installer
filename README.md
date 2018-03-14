@@ -31,7 +31,6 @@ Options:
 
 ``` shell
 curl -fsSL https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh -o terraform-install.sh; chmod +x terraform-install.sh
-./terraform-install.sh
 ```
 
 - Run the script
