@@ -27,21 +27,26 @@ Options:
 
 ### Installation with this Installer
 
-- Download the installer from this repo
+Download the installer and make executable
 
 ``` shell
-curl -fsSL https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh -o terraform-install.sh; chmod +x terraform-install.sh
+curl -LO https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh
+chmod +x terraform-install.sh
 ```
 
-- Run the script
+Run the installer
 
 ``` shell
 ./terraform-install.sh
+```
 
-# Specific version install using -i
+Optional Parameters
+
+``` shell
+# -i = Install specific version
 ./terraform-install.sh -i 0.11.1
 
-# Automatic sudo install to /usr/local/bin/
+# -a = Automatic sudo install to /usr/local/bin/
 ./terraform-install.sh -a
 ```
 
