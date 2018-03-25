@@ -8,7 +8,7 @@
 
 ---
 
-The **terraform-install** script automates the process of downloading and installing Terraform.  This provides a ideal method for installation on new hosts, installing updates and even downgrading if necessary.  This script detects or determines the OS and CPU-Architecture.
+The **terraform-install** script automates the process of downloading and installing Terraform.  This provides an ideal method for installation on new hosts, installing updates and even downgrading if necessary.  This script detects or determines the OS and CPU-Architecture.
 
 Options:
 
@@ -17,13 +17,6 @@ Options:
   - prevents user prompt asking for install destination
   - user must enter sudo password unless NOPASSWD is enabled
   - uncomment line 12 to make this the default behavior (`sudoInstall=true`)
-
-### Official Installation Process
-
-- visit website download page
-- locate version for OS/CPU and download
-- find and extract binary from downloaded zip file
-- copy binary to a directory on the PATH
 
 ### Installation with this Installer
 
@@ -49,6 +42,13 @@ Optional Parameters
 # -a = Automatic sudo install to /usr/local/bin/
 ./terraform-install.sh -a
 ```
+
+### Terraform's Official Installation Process
+
+- visit website download page
+- locate version for OS/CPU and download
+- find and extract binary from downloaded zip file
+- copy binary to a directory on the PATH
 
 ### System Requirements
 
