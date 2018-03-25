@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # TERRAFORM INSTALLER - Automated Terraform Installation
-#   MIT License - Copyright (c) 2018  Robert Peteuil  @RobertPeteuil
+#   Apache 2 License - Copyright (c) 2018  Robert Peteuil  @RobertPeteuil
 #
 #     Automatically Download, Extract and Install
 #        Latest or Specific Version of Terraform
