@@ -12,17 +12,19 @@
 # sudoInstall=true
 
 scriptname=$(basename "$0")
-scriptbuildnum="1.1.1"
+scriptbuildnum="1.1.2"
 scriptbuilddate="2018-02-17"
+
+LATEST=$(wget -q -O- https://releases.hashicorp.com/index.json 2>/dev/null | jq -r '.terraform.versions[].version' | sort --version-sort -r | head -n 1)
 
 displayVer() {
   echo -e "${scriptname}  ver ${scriptbuildnum} - ${scriptbuilddate}"
 }
 
 usage() {
-  [[ "$1" ]] && echo -e "Download and Install Tarraform - Latest Version unless '-i' specified\n"
+  [[ "$1" ]] && echo -e "Download and Install Terraform - Latest Version unless '-i' specified\n"
   echo -e "usage: ${scriptname} [-i VERSION] [-h] [-v]"
-  echo -e "     -i VERSION\t: specify version to install in format '0.11.1' (OPTIONAL)"
+  echo -e "     -i VERSION\t: specify version to install in format '$LATEST' (OPTIONAL)"
   echo -e "     -a\t\t: always use sudo to install to \\usr\\local\\bin\\"
   echo -e "     -h\t\t: help"
   echo -e "     -v\t\t: display ${scriptname} version"
@@ -47,7 +49,7 @@ shift $((OPTIND-1))
 
 # POPULATE VARIABLES NEEDED TO CREATE DOWNLOAD URL AND FILENAME
 if [[ -z "$VERSION" ]]; then
-  VERSION=$(curl -s https://api.github.com/repos/hashicorp/terraform/releases/latest | awk '/tag_name/ {b = gensub(/("|,|v)/, "", "g", $2); print b}')
+  VERSION=$LATEST
 fi
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 if [[ "$OS" == "linux" ]]; then
@@ -86,7 +88,7 @@ elif [[ "$sudoInstall" ]]; then
   CMDPREFIX="sudo "
   STREAMLINED=true
 else
-  echo -e "Tarraform Installer\n"
+  echo -e "Terraform Installer\n"
   echo "Specify install directory (a,b or c):"
   echo -en "\t(a) '~/bin'    (b) '/usr/local/bin' as root    (c) abort : "
   read -r -n 1 SELECTION
@@ -122,6 +124,6 @@ ${CMDPREFIX} cp -f terraform "$BINDIR" || exit 1
 cd "${TMPDIR}" || exit 1
 rm -rf "${UTILTMPDIR}"
 [[ ! "$STREAMLINED" ]] && echo
-echo "Tarraform Version ${VERSION} installed to ${BINDIR}"
+echo "Terraform Version ${VERSION} installed to ${BINDIR}"
 
 exit 0
