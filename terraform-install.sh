@@ -12,7 +12,7 @@
 # sudoInstall=true
 
 scriptname=$(basename "$0")
-scriptbuildnum="1.1.3"
+scriptbuildnum="1.2.0"
 scriptbuilddate="2018-04-11"
 
 LATEST=$(wget -q -O- https://api.github.com/repos/hashicorp/terraform/releases/latest 2> /dev/null | awk '/tag_name/ {print $2}' | cut -d '"' -f 2 | cut -d 'v' -f 2)
@@ -65,7 +65,7 @@ fi
 # CREATE FILENAME AND DOWNLOAD LINK BASED ON GATHERED PARAMETERS
 FILENAME="terraform_${VERSION}_${OS}_${PROC}.zip"
 LINK="https://releases.hashicorp.com/terraform/${VERSION}/${FILENAME}"
-LINKVALID=$(curl -o /dev/null --silent --head --write-out '%{http_code}\n' "$LINK")
+LINKVALID=$(wget --spider -S "$LINK" 2>&1 | grep "HTTP/" | awk '{print $2}')
 
 # VERIFY LINK VALIDITY
 if [[ "$LINKVALID" != 200 ]]; then
@@ -113,7 +113,7 @@ mkdir -p "$UTILTMPDIR"
 cd "$UTILTMPDIR" || exit 1
 
 # DOWNLOAD AND EXTRACT
-curl -s -o "$FILENAME" "$LINK"
+wget -q "$LINK" -O "$FILENAME"
 unzip -qq "$FILENAME" || exit 1
 
 # COPY TO DESTINATION

@@ -15,15 +15,15 @@ Options:
 - install specific version: `-i VERSION`
 - automatically `sudo` install to /usr/local/bin: `-a`
   - prevents user prompt asking for install destination
-  - user must enter sudo password unless NOPASSWD is enabled
-  - uncomment line 12 to make this the default behavior (`sudoInstall=true`)
+  - user will still need to enter sudo password unless NOPASSWD is enabled
+  - set as default behavior by uncommenting line 12 (`sudoInstall=true`)
 
 ### Installation with this Installer
 
 Download the installer and make executable
 
 ``` shell
-curl -LO https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh
+wget https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh
 chmod +x terraform-install.sh
 ```
 
@@ -39,7 +39,7 @@ Optional Parameters
 # -i = Install specific version
 ./terraform-install.sh -i 0.11.1
 
-# -a = Automatic sudo install to /usr/local/bin/
+# -a = Automatic sudo install to /usr/local/bin/  (no user prompt)
 ./terraform-install.sh -a
 ```
 
@@ -53,8 +53,7 @@ Optional Parameters
 ### System Requirements
 
 - System with Bash Shell (Linux, macOS, Windows Subsystem for Linux)
-- `curl`
-- `unzip` - terraform downloads in zip format
+- `unzip` - terraform downloads are in zip format
 
 ### Script Process Details
 
