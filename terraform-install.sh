@@ -12,10 +12,10 @@
 # sudoInstall=true
 
 scriptname=$(basename "$0")
-scriptbuildnum="1.1.2"
-scriptbuilddate="2018-02-17"
+scriptbuildnum="1.1.3"
+scriptbuilddate="2018-04-11"
 
-LATEST=$(wget -q -O- https://releases.hashicorp.com/index.json 2>/dev/null | jq -r '.terraform.versions[].version' | sort --version-sort -r | head -n 1)
+LATEST=$(wget -q -O- https://api.github.com/repos/hashicorp/terraform/releases/latest 2> /dev/null | awk '/tag_name/ {print $2}' | cut -d '"' -f 2 | cut -d 'v' -f 2)
 
 displayVer() {
   echo -e "${scriptname}  ver ${scriptbuildnum} - ${scriptbuilddate}"
@@ -25,7 +25,7 @@ usage() {
   [[ "$1" ]] && echo -e "Download and Install Terraform - Latest Version unless '-i' specified\n"
   echo -e "usage: ${scriptname} [-i VERSION] [-h] [-v]"
   echo -e "     -i VERSION\t: specify version to install in format '$LATEST' (OPTIONAL)"
-  echo -e "     -a\t\t: always use sudo to install to \\usr\\local\\bin\\"
+  echo -e "     -a\t\t: automatically use sudo to install to /usr/local/bin"
   echo -e "     -h\t\t: help"
   echo -e "     -v\t\t: display ${scriptname} version"
 }
