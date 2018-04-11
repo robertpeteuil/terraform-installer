@@ -8,15 +8,17 @@
 
 ---
 
-The **terraform-install** script automates the process of downloading and installing Terraform.  This provides an ideal method for installation on new hosts, installing updates and even downgrading if necessary.  This script detects or determines the OS and CPU-Architecture.
+The **terraform-install** script automates the process of downloading and installing Terraform.  It provides an ideal method for installing on new hosts, installing updates and downgrading if necessary.  This script detects the latest version, OS and CPU-Architecture and can installation to multiple locations.  Optional parameters allow installing a specific version and installing to /usr/local/bin without prompting.
 
 Options:
 
-- install specific version: `-i VERSION`
-- automatically `sudo` install to /usr/local/bin: `-a`
-  - prevents user prompt asking for install destination
-  - user will still need to enter sudo password unless NOPASSWD is enabled
-  - set as default behavior by uncommenting line 12 (`sudoInstall=true`)
+- `-i VERSION`:  Install specific version
+- `-a`:          Automatically use `sudo` to install to /usr/local/bin
+  - allows for unattended installation via scripts or CD tools
+  - can be set as default behavior by uncommenting line 12 (`sudoInstall=true`)
+  - sudo password may be required unless NOPASSWD is enabled
+- `-h`:          help
+- `-v`:          display version
 
 ### Installation with this Installer
 
@@ -24,6 +26,7 @@ Download the installer and make executable
 
 ``` shell
 wget https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh
+# or curl -LO https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh
 chmod +x terraform-install.sh
 ```
 
@@ -66,7 +69,7 @@ Optional Parameters
   - VERSION incorrectly specified with `-i`
   - Download URL Format Changed on terraform Website
 - Determines Install Destination
-  - Performed before Download/Install Process in case User selects `abort`
+  - Performed before Download/Install Process in case user selects `abort`
 - Installation Process
   - Download, Extract, Install, Cleanup and Display Results
 
