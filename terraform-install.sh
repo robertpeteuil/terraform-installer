@@ -60,7 +60,7 @@ if [[ "$OS" == "linux" ]]; then
 else
   PROC="amd64"
 fi
-[[ $PROC =~ arm ]] && PROC="arm"  # tarraform only lists arm in the url
+[[ $PROC =~ arm ]] && PROC="arm"  # terraform downloads use "arm" not full arm type
 
 # CREATE FILENAME AND DOWNLOAD LINK BASED ON GATHERED PARAMETERS
 FILENAME="terraform_${VERSION}_${OS}_${PROC}.zip"
