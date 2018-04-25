@@ -35,6 +35,11 @@ if ! unzip -h 2&> /dev/null; then
   exit 1
 fi
 
+if ! wget -h 2&> /dev/null; then
+  echo "aborting - wget not installed and required for installation"
+  exit 1
+fi
+
 while getopts ":i:ahv" arg; do
   case "${arg}" in
     a)  sudoInstall=true;;
