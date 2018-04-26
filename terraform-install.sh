@@ -12,8 +12,8 @@
 # sudoInstall=true
 
 scriptname=$(basename "$0")
-scriptbuildnum="1.2.0"
-scriptbuilddate="2018-04-11"
+scriptbuildnum="1.2.1"
+scriptbuilddate="2018-04-25"
 
 LATEST=$(wget -q -O- https://api.github.com/repos/hashicorp/terraform/releases/latest 2> /dev/null | awk '/tag_name/ {print $2}' | cut -d '"' -f 2 | cut -d 'v' -f 2)
 
