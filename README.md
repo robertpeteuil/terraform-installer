@@ -57,6 +57,7 @@ Optional Parameters
 
 - System with Bash Shell (Linux, macOS, Windows Subsystem for Linux)
 - `unzip` - terraform downloads are in zip format
+- `wget` - used to retrieve metadata and download package
 
 ### Script Process Details
 
