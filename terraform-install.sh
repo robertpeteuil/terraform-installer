@@ -12,10 +12,47 @@
 # sudoInstall=true
 
 scriptname=$(basename "$0")
-scriptbuildnum="1.2.1"
-scriptbuilddate="2018-04-25"
+scriptbuildnum="1.3.0"
+scriptbuilddate="2018-05-13"
 
-LATEST=$(wget -q -O- https://api.github.com/repos/hashicorp/terraform/releases/latest 2> /dev/null | awk '/tag_name/ {print $2}' | cut -d '"' -f 2 | cut -d 'v' -f 2)
+
+# CHECK DEPENDANCIES AND SET NET RETRIEVAL TOOL
+if ! unzip -h 2&> /dev/null; then
+  echo "aborting - unzip not installed and required"
+  exit 1
+fi
+
+if curl -h 2&> /dev/null; then
+  nettool="curl"
+elif wget -h 2&> /dev/null; then
+  nettool="wget"
+else
+  echo "aborting - wget or curl not installed and required"
+  exit 1
+fi
+
+if jq --help 2&> /dev/null; then
+  nettool="${nettool}jq"
+fi
+
+# USE NET RETRIEVAL TOOL TO GET LATEST VERSION
+case "${nettool}" in
+  # jq installed - parse version from hashicorp website
+  wgetjq)
+    LATEST=$(wget -q -O- https://releases.hashicorp.com/index.json 2>/dev/null | jq -r '.terraform.versions[].version' | sort --version-sort -r | head -n 1)
+    ;;
+  curljq)
+    LATEST=$(curl -s https://releases.hashicorp.com/index.json 2>/dev/null | jq -r '.terraform.versions[].version' | sort --version-sort -r | head -n 1)
+    ;;
+  # parse version from github API
+  wget)
+    LATEST=$(wget -q -O- https://api.github.com/repos/hashicorp/terraform/releases/latest 2> /dev/null | awk '/tag_name/ {print $2}' | cut -d '"' -f 2 | cut -d 'v' -f 2)
+    ;;
+  curl)
+    LATEST=$(curl -s https://api.github.com/repos/hashicorp/terraform/releases/latest 2> /dev/null | awk '/tag_name/ {print $2}' | cut -d '"' -f 2 | cut -d 'v' -f 2)
+    ;;
+esac
+
 
 displayVer() {
   echo -e "${scriptname}  ver ${scriptbuildnum} - ${scriptbuilddate}"
@@ -29,16 +66,6 @@ usage() {
   echo -e "     -h\t\t: help"
   echo -e "     -v\t\t: display ${scriptname} version"
 }
-
-if ! unzip -h 2&> /dev/null; then
-  echo "aborting - unzip not installed and required for installation"
-  exit 1
-fi
-
-if ! wget -h 2&> /dev/null; then
-  echo "aborting - wget not installed and required for installation"
-  exit 1
-fi
 
 while getopts ":i:ahv" arg; do
   case "${arg}" in
@@ -70,7 +97,12 @@ fi
 # CREATE FILENAME AND DOWNLOAD LINK BASED ON GATHERED PARAMETERS
 FILENAME="terraform_${VERSION}_${OS}_${PROC}.zip"
 LINK="https://releases.hashicorp.com/terraform/${VERSION}/${FILENAME}"
-LINKVALID=$(wget --spider -S "$LINK" 2>&1 | grep "HTTP/" | awk '{print $2}')
+case "${nettool}" in
+  wget*)
+    LINKVALID=$(wget --spider -S "$LINK" 2>&1 | grep "HTTP/" | awk '{print $2}') ;;
+  curl*)
+    LINKVALID=$(curl -o /dev/null --silent --head --write-out '%{http_code}\n' "$LINK") ;;
+esac
 
 # VERIFY LINK VALIDITY
 if [[ "$LINKVALID" != 200 ]]; then
@@ -118,7 +150,12 @@ mkdir -p "$UTILTMPDIR"
 cd "$UTILTMPDIR" || exit 1
 
 # DOWNLOAD AND EXTRACT
-wget -q "$LINK" -O "$FILENAME"
+case "${nettool}" in
+  wget*)
+    wget -q "$LINK" -O "$FILENAME" ;;
+  curl*)
+    curl -s -o "$FILENAME" "$LINK" ;;
+esac
 unzip -qq "$FILENAME" || exit 1
 
 # COPY TO DESTINATION

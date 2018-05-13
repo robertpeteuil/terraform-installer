@@ -2,9 +2,9 @@
 
 ## Automatically Download, Extract and Install Latest or Specific Version
 
-[![](https://img.shields.io/github/release/robertpeteuil/terraform-installer.svg?colorB=2067b8)](https://github.com/robertpeteuil/terraform-installer)
-[![](https://img.shields.io/badge/language-bash-89e051.svg?style=flat-square)](https://github.com/robertpeteuil/terraform-installer)
-[![](https://img.shields.io/github/license/robertpeteuil/terraform-installer.svg?colorB=2067b8)](https://github.com/robertpeteuil/terraform-installer)
+[![release](https://img.shields.io/github/release/robertpeteuil/terraform-installer.svg?colorB=2067b8)](https://github.com/robertpeteuil/terraform-installer)
+[![bash](https://img.shields.io/badge/language-bash-89e051.svg?style=flat-square)](https://github.com/robertpeteuil/terraform-installer)
+[![license](https://img.shields.io/github/license/robertpeteuil/terraform-installer.svg?colorB=2067b8)](https://github.com/robertpeteuil/terraform-installer)
 
 ---
 
@@ -20,13 +20,13 @@ Options:
 - `-h`:          help
 - `-v`:          display version
 
-### Installation with this Installer
+### Installation using this Installer
 
-Download the installer and make executable
+Download the installer with `curl` or `wget` and make executable
 
 ``` shell
-wget https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh
-# or curl -LO https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh
+curl -LO https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh
+# OR wget https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh
 chmod +x terraform-install.sh
 ```
 
@@ -36,7 +36,7 @@ Run the installer
 ./terraform-install.sh
 ```
 
-Optional Parameters
+Examples with Optional Parameters
 
 ``` shell
 # -i = Install specific version
@@ -46,25 +46,25 @@ Optional Parameters
 ./terraform-install.sh -a
 ```
 
-### Terraform's Official Installation Process
-
-- visit website download page
-- locate version for OS/CPU and download
-- find and extract binary from downloaded zip file
-- copy binary to a directory on the PATH
-
 ### System Requirements
 
 - System with Bash Shell (Linux, macOS, Windows Subsystem for Linux)
 - `unzip` - terraform downloads are in zip format
-- `wget` - used to retrieve metadata and download package
+- `curl` or `wget` - script will use either one to retrieve metadata and download
+
+Optional
+
+- `jq` - if installed, latest version parsed from hashicorp downloads
+  - Useful if latest github release differs from version on hashicorp downloads
+  - Avoids github api limit of 60 requests per hour (unauthenticated)
 
 ### Script Process Details
 
 - Determines Version to Download and Install
   - Uses Version specified by `-i VERSION` parameter (if specified)
   - Otherwise determines Latest Version
-    - Uses GitHub API to retrieve latest version number
+    - If `jq` installed parse version from hashicorp downloads
+    - Otherwise use GitHub API to retrieve latest version
 - Calculates Download URL based on Version, OS and CPU-Architecture
 - Verifies URL Validity before Downloading in Case:
   - VERSION incorrectly specified with `-i`
