@@ -12,8 +12,8 @@
 # sudoInstall=true
 
 scriptname=$(basename "$0")
-scriptbuildnum="1.3.0"
-scriptbuilddate="2018-05-13"
+scriptbuildnum="1.3.1"
+scriptbuilddate="2018-08-28"
 
 
 # CHECK DEPENDANCIES AND SET NET RETRIEVAL TOOL
@@ -60,16 +60,18 @@ displayVer() {
 
 usage() {
   [[ "$1" ]] && echo -e "Download and Install Terraform - Latest Version unless '-i' specified\n"
-  echo -e "usage: ${scriptname} [-i VERSION] [-h] [-v]"
+  echo -e "usage: ${scriptname} [-i VERSION] [-a] [-c] [-h] [-v]"
   echo -e "     -i VERSION\t: specify version to install in format '$LATEST' (OPTIONAL)"
   echo -e "     -a\t\t: automatically use sudo to install to /usr/local/bin"
+  echo -e "     -c\t\t: leave binary in working directory (for CI/DevOps use)"
   echo -e "     -h\t\t: help"
   echo -e "     -v\t\t: display ${scriptname} version"
 }
 
-while getopts ":i:ahv" arg; do
+while getopts ":i:achv" arg; do
   case "${arg}" in
     a)  sudoInstall=true;;
+    c)  cwdInstall=true;;
     i)  VERSION=${OPTARG};;
     h)  usage x; exit;;
     v)  displayVer; exit;;
@@ -116,7 +118,11 @@ if [[ "$LINKVALID" != 200 ]]; then
 fi
 
 # DETERMINE DESTINATION
-if [[ -w "/usr/local/bin" ]]; then
+if [[ "$cwdInstall" ]]; then
+  BINDIR=$(pwd)
+  CMDPREFIX=""
+  STREAMLINED=true
+elif [[ -w "/usr/local/bin" ]]; then
   BINDIR="/usr/local/bin"
   CMDPREFIX=""
   STREAMLINED=true
