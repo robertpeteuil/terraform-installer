@@ -41,7 +41,7 @@ chmod +x terraform-install.sh
 
 ### Running via macOS brew
 
-This installer can be ran as a [brew](https://brew.sh/) formula.  Unlike the official Brew Terraform formula, it does not compile from source so it doesn't have dependancies on `go` and `gox`.
+This installer can be ran as a [brew](https://brew.sh/) formula.  Unlike the official Brew Terraform formula, this does not compile from source so it doesn't have dependancies on `go` and `gox`.
 
 ``` shell
 brew install robpco/tap/terraform
