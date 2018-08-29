@@ -10,8 +10,6 @@
 
 The **terraform-install** script automates the process of downloading and installing Terraform.  It provides an ideal method for installing on new hosts, installing updates and downgrading if necessary.
 
-This installer is similar to my [Packer Installer](https://github.com/robertpeteuil/packer-installer)
-
 This script detects the latest version, OS and CPU-Architecture and allows installation to local or system locations.  Optional parameters allow installing a specific version and installing to /usr/local/bin without prompting.
 
 Options:
@@ -25,33 +23,31 @@ Options:
 - `-h`:          help
 - `-v`:          display version
 
-### Installation using this Installer
+This installer is similar to my [Packer Installer](https://github.com/robertpeteuil/packer-installer)
 
-Download the installer with `curl` or `wget` and make executable
+## Use
+
+### Local download
+
+Download the installer with `curl`, make executable and run:
 
 ``` shell
 curl -LO https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh
-# OR wget https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh
+
 chmod +x terraform-install.sh
-```
 
-Run the installer
-
-``` shell
 ./terraform-install.sh
 ```
 
-Examples with Optional Parameters
+### Running via macOS brew
+
+On macOS this installer can be ran as a [brew](https://brew.sh/) formula.  Unlike the official Brew Terraform formula, it does not require installation of `go` and `gox` as it does not compile from source.
 
 ``` shell
-# -i = Install specific version
-./terraform-install.sh -i 0.11.8
-
-# -a = Automatic sudo install to /usr/local/bin/  (no user prompt)
-./terraform-install.sh -a
+brew install robertpeteuil/tap/terraform
 ```
 
-### System Requirements
+## System Requirements
 
 - System with Bash Shell (Linux, macOS, Windows Subsystem for Linux)
 - `unzip` - terraform downloads are in zip format
@@ -63,7 +59,7 @@ Optional
   - Useful if latest github release differs from version on hashicorp downloads
   - Avoids github api limit of 60 requests per hour (unauthenticated)
 
-### Script Process Details
+## Script Process Details
 
 - Determines Version to Download and Install
   - Uses Version specified by `-i VERSION` parameter (if specified)
@@ -79,7 +75,7 @@ Optional
 - Installation Process
   - Download, Extract, Install, Cleanup and Display Results
 
-#### CPU Architecture Detection
+### CPU Architecture Detection
 
 CPU architecture is detected for each OS accordingly:
 
@@ -88,6 +84,6 @@ CPU architecture is detected for each OS accordingly:
 - macOS - uses Default Arch `amd64` as it's the only version available on macOS
 - Default Value - `amd64`
 
-### License
+## License
 
 Apache 2.0 License - Copyright (c) 2018    Robert Peteuil
