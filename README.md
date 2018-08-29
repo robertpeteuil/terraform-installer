@@ -41,10 +41,10 @@ chmod +x terraform-install.sh
 
 ### Running via macOS brew
 
-On macOS this installer can be ran as a [brew](https://brew.sh/) formula.  Unlike the official Brew Terraform formula, it does not require installation of `go` and `gox` as it does not compile from source.
+This installer can be ran as a [brew](https://brew.sh/) formula.  Unlike the official Brew Terraform formula, it does not compile from source so it doesn't have dependancies on `go` and `gox`.
 
 ``` shell
-brew install robertpeteuil/tap/terraform
+brew install robpco/tap/terraform
 ```
 
 ## System Requirements
