@@ -12,8 +12,8 @@
 # sudoInstall=true
 
 scriptname=$(basename "$0")
-scriptbuildnum="1.3.2"
-scriptbuilddate="2018-08-28"
+scriptbuildnum="1.3.3"
+scriptbuilddate="2018-08-30"
 
 
 # CHECK DEPENDANCIES AND SET NET RETRIEVAL TOOL
@@ -89,7 +89,7 @@ OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 if [[ "$OS" == "linux" ]]; then
   PROC=$(lscpu 2> /dev/null | awk '/Architecture/ {if($2 == "x86_64") {print "amd64"; exit} else {print "386"; exit}}')
   if [[ -z $PROC ]]; then
-    PROC=$(cat /proc/cpuinfo | awk '/flags/ {if($0 ~ /lm/) {print "arm64"; exit} else {print "386"; exit}}')
+    PROC=$(cat /proc/cpuinfo | awk '/flags/ {if($0 ~ /lm/) {print "amd64"; exit} else {print "386"; exit}}')
   fi
 else
   PROC="amd64"
