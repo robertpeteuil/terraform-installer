@@ -190,8 +190,6 @@ if shasum -h 2&> /dev/null; then
     echo "Expected: $expected_sha"
     echo "Actual: $download_sha"
     exit 1
-  else
-    echo "checksum verified"
   fi
 fi
 
