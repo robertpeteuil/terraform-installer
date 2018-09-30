@@ -182,13 +182,17 @@ case "${nettool}" in
 esac
 
 # VERIFY ZIP CHECKSUM
-expected_sha=$(cat SHAFILE | grep "$FILENAME" | awk '{print $1}')
-download_sha=$(shasum -a 256 "$FILENAME" | cut -d' ' -f1)
-if [ $expected_sha != $download_sha ]; then
-  echo "Download Checksum Incorrect"
-  echo "Expected: $expected_sha"
-  echo "Actual: $download_sha"
-  exit 1
+if shasum -h 2&> /dev/null; then
+  expected_sha=$(cat SHAFILE | grep "$FILENAME" | awk '{print $1}')
+  download_sha=$(shasum -a 256 "$FILENAME" | cut -d' ' -f1)
+  if [ $expected_sha != $download_sha ]; then
+    echo "Download Checksum Incorrect"
+    echo "Expected: $expected_sha"
+    echo "Actual: $download_sha"
+    exit 1
+  else
+    echo "checksum verified"
+  fi
 fi
 
 # EXTRACT ZIP
