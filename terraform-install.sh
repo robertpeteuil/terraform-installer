@@ -15,7 +15,6 @@ scriptname=$(basename "$0")
 scriptbuildnum="1.4.0"
 scriptbuilddate="2018-09-30"
 
-
 # CHECK DEPENDANCIES AND SET NET RETRIEVAL TOOL
 if ! unzip -h 2&> /dev/null; then
   echo "aborting - unzip not installed and required"
@@ -52,7 +51,6 @@ case "${nettool}" in
     LATEST=$(curl -s https://api.github.com/repos/hashicorp/terraform/releases/latest 2> /dev/null | awk '/tag_name/ {print $2}' | cut -d '"' -f 2 | cut -d 'v' -f 2)
     ;;
 esac
-
 
 displayVer() {
   echo -e "${scriptname}  ver ${scriptbuildnum} - ${scriptbuilddate}"
