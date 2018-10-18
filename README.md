@@ -17,7 +17,7 @@ Options:
 - `-i VERSION`:  Install specific version
 - `-a`:          Automatically use `sudo` to install to /usr/local/bin
   - allows for unattended installation via scripts or CD tools
-  - can be set as default behavior by uncommenting line 12 (`sudoInstall=true`)
+  - can be set as default behavior by uncommenting line 14 (`sudoInstall=true`)
   - sudo password may be required unless NOPASSWD is enabled
 - `-c`:          leave binary in working directory (for CI/DevOps use)
 - `-h`:          help
