@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # TERRAFORM INSTALLER - Automated Terraform Installation
 #   Apache 2 License - Copyright (c) 2018  Robert Peteuil  @RobertPeteuil
 #
@@ -12,8 +14,8 @@
 # sudoInstall=true
 
 scriptname=$(basename "$0")
-scriptbuildnum="1.4.0"
-scriptbuilddate="2018-09-30"
+scriptbuildnum="1.5.0"
+scriptbuilddate="2018-10-18"
 
 # CHECK DEPENDANCIES AND SET NET RETRIEVAL TOOL
 if ! unzip -h 2&> /dev/null; then
@@ -34,24 +36,6 @@ if jq --help 2&> /dev/null; then
   nettool="${nettool}jq"
 fi
 
-# USE NET RETRIEVAL TOOL TO GET LATEST VERSION
-case "${nettool}" in
-  # jq installed - parse version from hashicorp website
-  wgetjq)
-    LATEST=$(wget -q -O- https://releases.hashicorp.com/index.json 2>/dev/null | jq -r '.terraform.versions[].version' | sort --version-sort -r | head -n 1)
-    ;;
-  curljq)
-    LATEST=$(curl -s https://releases.hashicorp.com/index.json 2>/dev/null | jq -r '.terraform.versions[].version' | sort --version-sort -r | head -n 1)
-    ;;
-  # parse version from github API
-  wget)
-    LATEST=$(wget -q -O- https://api.github.com/repos/hashicorp/terraform/releases/latest 2> /dev/null | awk '/tag_name/ {print $2}' | cut -d '"' -f 2 | cut -d 'v' -f 2)
-    ;;
-  curl)
-    LATEST=$(curl -s https://api.github.com/repos/hashicorp/terraform/releases/latest 2> /dev/null | awk '/tag_name/ {print $2}' | cut -d '"' -f 2 | cut -d 'v' -f 2)
-    ;;
-esac
-
 displayVer() {
   echo -e "${scriptname}  ver ${scriptbuildnum} - ${scriptbuilddate}"
 }
@@ -59,11 +43,40 @@ displayVer() {
 usage() {
   [[ "$1" ]] && echo -e "Download and Install Terraform - Latest Version unless '-i' specified\n"
   echo -e "usage: ${scriptname} [-i VERSION] [-a] [-c] [-h] [-v]"
-  echo -e "     -i VERSION\t: specify version to install in format '$LATEST' (OPTIONAL)"
+  echo -e "     -i VERSION\t: specify version to install in format '0.11.8' (OPTIONAL)"
   echo -e "     -a\t\t: automatically use sudo to install to /usr/local/bin"
   echo -e "     -c\t\t: leave binary in working directory (for CI/DevOps use)"
   echo -e "     -h\t\t: help"
   echo -e "     -v\t\t: display ${scriptname} version"
+}
+
+getLatest() {
+  # USE NET RETRIEVAL TOOL TO GET LATEST VERSION
+  case "${nettool}" in
+    # jq installed - parse version from hashicorp website
+    wgetjq)
+      LATEST_ARR=($(wget -q -O- https://releases.hashicorp.com/index.json 2>/dev/null | jq -r '.terraform.versions[].version' | sort -t. -k 1,1nr -k 2,2nr -k 3,3nr))
+      ;;
+    curljq)
+      LATEST_ARR=($(curl -s https://releases.hashicorp.com/index.json 2>/dev/null | jq -r '.terraform.versions[].version' | sort -t. -k 1,1nr -k 2,2nr -k 3,3nr))
+      ;;
+    # parse version from github API
+    wget)
+      LATEST_ARR=($(wget -q -O- https://api.github.com/repos/hashicorp/terraform/releases 2> /dev/null | awk '/tag_name/ {print $2}' | cut -d '"' -f 2 | cut -d 'v' -f 2))
+      ;;
+    curl)
+      LATEST_ARR=($(curl -s https://api.github.com/repos/hashicorp/terraform/releases 2> /dev/null | awk '/tag_name/ {print $2}' | cut -d '"' -f 2 | cut -d 'v' -f 2))
+      ;;
+  esac
+
+# make sure latest version isn't beta or rc
+for ver in "${LATEST_ARR[@]}"; do
+  if [[ ! $ver =~ beta ]] && [[ ! $ver =~ rc ]]; then
+    LATEST="$ver"
+    break
+  fi
+done
+echo -n "$LATEST"
 }
 
 while getopts ":i:achv" arg; do
@@ -81,7 +94,7 @@ shift $((OPTIND-1))
 
 # POPULATE VARIABLES NEEDED TO CREATE DOWNLOAD URL AND FILENAME
 if [[ -z "$VERSION" ]]; then
-  VERSION=$LATEST
+  VERSION=$(getLatest)
 fi
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 if [[ "$OS" == "linux" ]]; then
