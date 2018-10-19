@@ -14,8 +14,8 @@ set -e
 # sudoInstall=true
 
 scriptname=$(basename "$0")
-scriptbuildnum="1.5.0"
-scriptbuilddate="2018-10-18"
+scriptbuildnum="1.5.1"
+scriptbuilddate="2018-10-19"
 
 # CHECK DEPENDANCIES AND SET NET RETRIEVAL TOOL
 if ! unzip -h 2&> /dev/null; then
@@ -71,7 +71,7 @@ getLatest() {
 
 # make sure latest version isn't beta or rc
 for ver in "${LATEST_ARR[@]}"; do
-  if [[ ! $ver =~ beta ]] && [[ ! $ver =~ rc ]]; then
+  if [[ ! $ver =~ beta ]] && [[ ! $ver =~ rc ]] && [[ ! $ver =~ alpha ]]; then
     LATEST="$ver"
     break
   fi
