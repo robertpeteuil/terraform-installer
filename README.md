@@ -27,13 +27,7 @@ This installer is similar to my [Vault Installer](https://github.com/robertpeteu
 
 ## Install
 
-Express install via `iac.sh` or `https://iac.sh` (my bootstrap server)
-
-``` shell
-curl iac.sh/terraform | sh   # run without '| sh' to view & verify script
-```
-
-Manual Download
+Download Installer
 
 ``` shell
 curl -LO https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh
@@ -42,7 +36,7 @@ chmod +x terraform-install.sh
 
 ## Use
 
-Run command with
+### Run local installer
 
 ``` shell
 ./terraform-install.sh
@@ -53,6 +47,12 @@ Run command with
 #      -c		: leave binary in working directory (for CI/DevOps use)
 #      -h		: help
 #      -v		: display vault-install.sh version
+```
+
+### Express install via `iac.sh` or `https://iac.sh` (my bootstrap server)
+
+``` shell
+curl iac.sh/terraform | sh   # run without '| sh' to view & verify script
 ```
 
 ## System Requirements
