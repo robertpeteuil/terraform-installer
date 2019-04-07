@@ -23,28 +23,36 @@ Options:
 - `-h`:          help
 - `-v`:          display version
 
-This installer is similar to my [Packer Installer](https://github.com/robertpeteuil/packer-installer)
+This installer is similar to my [Vault Installer](https://github.com/robertpeteuil/vault-installer) and [Packer Installer](https://github.com/robertpeteuil/packer-installer)
 
-## Use
+## Install
 
-### Local download
+Express install via `iac.sh` or `https://iac.sh` (my bootstrap server)
 
-Download the installer with `curl`, make executable and run:
+``` shell
+curl iac.sh/terraform | sh   # run without '| sh' to view & verify script
+```
+
+Manual Download
 
 ``` shell
 curl -LO https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh
-
 chmod +x terraform-install.sh
-
-./terraform-install.sh
 ```
 
-### Running via macOS brew
+## Use
 
-This installer can be ran as a [brew](https://brew.sh/) formula.  Unlike the official Brew Terraform formula, this does not compile from source so it doesn't have dependancies on `go` and `gox`.
+Run command with
 
 ``` shell
-brew install robpco/tap/terraform
+./terraform-install.sh
+
+# usage: terraform-install.sh [-i VERSION] [-a] [-c] [-h] [-v]
+#      -i VERSION	: specify version to install in format '' (OPTIONAL)
+#      -a		: automatically use sudo to install to /usr/local/bin
+#      -c		: leave binary in working directory (for CI/DevOps use)
+#      -h		: help
+#      -v		: display vault-install.sh version
 ```
 
 ## System Requirements
@@ -73,7 +81,7 @@ Optional
 - Determines Install Destination
   - Performed before Download/Install Process in case user selects `abort`
 - Installation Process
-  - Download, Extract, Install, Cleanup and Display Results
+  - Download, Download SHA, Verify SHA of zip, Extract, Install, Cleanup and Display Results
 
 ### CPU Architecture Detection
 
@@ -86,4 +94,4 @@ CPU architecture is detected for each OS accordingly:
 
 ## License
 
-Apache 2.0 License - Copyright (c) 2018    Robert Peteuil
+Apache 2.0 License - Copyright (c) 2019    Robert Peteuil
