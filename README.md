@@ -1,4 +1,4 @@
-# Terraform Installer - Automated Terraform Installation
+# Installer for HashiCorp Terraform - Automated Installation
 
 ## Automatically Download, Extract and Install Latest or Specific Version
 
