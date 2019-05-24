@@ -8,9 +8,11 @@
 
 ---
 
-The **terraform-install** script automates the process of downloading and installing Terraform.  It provides an ideal method for installing on new hosts, installing updates and downgrading if necessary.
+The **terraform-install** script automates the process of downloading and installing Terraform.  It provides an ideal method for installing installing updates or a specific version.
 
 This script detects the latest version, OS and CPU-Architecture and allows installation to local or system locations.  Optional parameters allow installing a specific version and installing to /usr/local/bin without prompting.
+
+Example - install last pre-0.12 release: `./terraform-install.sh -i 0.11.14`
 
 Options:
 
@@ -49,7 +51,7 @@ chmod +x terraform-install.sh
 #      -v		: display vault-install.sh version
 ```
 
-### Express install via `iac.sh` or `https://iac.sh` (my bootstrap server)
+### Express install latest version using bootstrap server iac.sh (or https://iac.sh )
 
 ``` shell
 curl iac.sh/terraform | sh   # run without '| sh' to view & verify script
