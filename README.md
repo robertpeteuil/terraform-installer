@@ -25,7 +25,7 @@ Options:
 - `-h`:          help
 - `-v`:          display version
 
-This installer is similar to my [Vault Installer](https://github.com/robertpeteuil/vault-installer) and [Packer Installer](https://github.com/robertpeteuil/packer-installer)
+This installer is similar to my [Packer Installer](https://github.com/robertpeteuil/packer-installer), [Sentinel Simulator Installer](https://github.com/robertpeteuil/sentinel-installer) and [Vault Installer](https://github.com/robertpeteuil/vault-installer)
 
 ## Install
 
