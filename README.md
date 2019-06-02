@@ -94,6 +94,10 @@ CPU architecture is detected for each OS accordingly:
 - macOS - uses Default Arch `amd64` as it's the only version available on macOS
 - Default Value - `amd64`
 
+## Disclaimer
+
+I am a HashiCorp employee, but this is a personal project and not officially endorsed or supported by HashiCorp.
+
 ## License
 
 Apache 2.0 License - Copyright (c) 2019    Robert Peteuil
