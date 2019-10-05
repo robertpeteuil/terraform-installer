@@ -27,12 +27,6 @@ Options:
 
 This installer is similar to my [Packer Installer](https://github.com/robertpeteuil/packer-installer), [Sentinel Simulator Installer](https://github.com/robertpeteuil/sentinel-installer) and [Vault Installer](https://github.com/robertpeteuil/vault-installer)
 
-## Express install latest version via my bootstrap server (iac.sh or https://iac.sh)
-
-``` shell
-curl iac.sh/terraform | sh
-```
-
 ## Download and Use Locally
 
 Download Installer
@@ -45,8 +39,9 @@ chmod +x terraform-install.sh
 Download installer via my bootstrap server (iac.sh or https://iac.sh)
 
 ``` shell
-curl iac.sh/teraform.sh | sh
-# installer downloaded as terraform-install.sh to current directory
+curl iac.sh/terraform > getinst.sh
+bash getinst.sh
+# installer downloaded as terraform-install.sh in current directory
 ```
 
 ### Run local installer
