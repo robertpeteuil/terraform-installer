@@ -14,8 +14,8 @@ set -e
 # sudoInstall=true
 
 scriptname=$(basename "$0")
-scriptbuildnum="1.5.2"
-scriptbuilddate="2020-01-02"
+scriptbuildnum="1.5.3"
+scriptbuilddate="2020-02-20"
 
 # CHECK DEPENDANCIES AND SET NET RETRIEVAL TOOL
 if ! unzip -h 2&> /dev/null; then
@@ -213,7 +213,7 @@ unzip -qq "$FILENAME" || exit 1
 # COPY TO DESTINATION
 if [[ ! "$cwdInstall" ]]; then
   mkdir -p "${BINDIR}" || exit 1
-  ${CMDPREFIX} cp -f terraform "$BINDIR" || exit 1
+  ${CMDPREFIX} mv terraform "$BINDIR" || exit 1
   # CLEANUP AND EXIT
   cd "${TMPDIR}" || exit 1
   rm -rf "${UTILTMPDIR}"
