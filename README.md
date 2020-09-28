@@ -12,7 +12,7 @@ The **terraform-install** script automates the process of downloading and instal
 
 This script detects the latest version, OS and CPU-Architecture and allows installation to local or system locations.  Optional parameters allow installing a specific version and installing to /usr/local/bin without prompting.
 
-Example - install last pre-0.12 release: `./terraform-install.sh -i 0.11.14`
+Example - install last pre-0.13 release: `./terraform-install.sh -i 0.12.29`
 
 Options:
 
@@ -25,7 +25,7 @@ Options:
 - `-h`:          help
 - `-v`:          display version
 
-This installer is similar to my [Packer Installer](https://github.com/robertpeteuil/packer-installer), [Sentinel Simulator Installer](https://github.com/robertpeteuil/sentinel-installer) and [Vault Installer](https://github.com/robertpeteuil/vault-installer)
+This installer is similar to my [Packer Installer](https://github.com/robertpeteuil/packer-installer) and [Vault Installer](https://github.com/robertpeteuil/vault-installer)
 
 ## Download and Use Locally
 
@@ -100,4 +100,4 @@ I am a HashiCorp employee, but this is a personal project and not officially end
 
 ## License
 
-Apache 2.0 License - Copyright (c) 2019    Robert Peteuil
+Apache 2.0 License - Copyright (c) 2020    Robert Peteuil
