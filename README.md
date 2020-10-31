@@ -81,6 +81,9 @@ Optional
   - VERSION incorrectly specified with `-i`
   - Download URL Format Changed on terraform Website
 - Determines Install Destination
+  - The destination can be specified with `-c` option, or passing `TF_INSTALL_DIR` environment variable
+  - The default is `/usr/local/bin` if it is writable, or with `-a`
+  - Otherwise the user is prompted for options
   - Performed before Download/Install Process in case user selects `abort`
 - Installation Process
   - Download, Download SHA, Verify SHA of zip, Extract, Install, Cleanup and Display Results
