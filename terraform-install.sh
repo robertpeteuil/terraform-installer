@@ -220,6 +220,7 @@ if [[ ! "$cwdInstall" ]]; then
   [[ ! "$STREAMLINED" ]] && echo
   echo "Terraform Version ${VERSION} installed to ${BINDIR}"
 else
+  rm -f "$FILENAME" SHAFILE
   echo "Terraform Version ${VERSION} downloaded"
 fi
 
