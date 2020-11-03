@@ -44,7 +44,7 @@ usage() {
   [[ "$1" ]] && echo -e "Download and Install Terraform - Latest Version unless '-i' specified\n"
   echo -e "usage: ${scriptname} [-i VERSION] [-a] [-c] [-h] [-v]"
   echo -e "     -i VERSION\t: specify version to install in format '0.11.8' (OPTIONAL)"
-  echo -e "     -a\t\t: automatically use sudo to install to /usr/local/bin"
+  echo -e "     -a\t\t: automatically use sudo to install to /usr/local/bin (or \$TF_INSTALL_DIR)"
   echo -e "     -c\t\t: leave binary in working directory (for CI/DevOps use)"
   echo -e "     -h\t\t: help"
   echo -e "     -v\t\t: display ${scriptname} version"
@@ -148,6 +148,10 @@ fi
 # DETERMINE DESTINATION
 if [[ "$cwdInstall" ]]; then
   BINDIR=$(pwd)
+elif [[ -n "$TF_INSTALL_DIR" ]]; then
+  BINDIR="$TF_INSTALL_DIR"
+  CMDPREFIX="${sudoInstall:+sudo }"
+  STREAMLINED=true
 elif [[ -w "/usr/local/bin" ]]; then
   BINDIR="/usr/local/bin"
   CMDPREFIX=""
