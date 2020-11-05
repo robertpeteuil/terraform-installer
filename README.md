@@ -94,6 +94,7 @@ CPU architecture is detected for each OS accordingly:
 
 - Linux / Windows (WSL since this is a Bash script)
   - detected with `lscpu` or by inspecting `/proc/cpuinfo`
+  - Arm variants use `arm` as it's the only `arm` version available (for now)
 - macOS - uses Default Arch `amd64` as it's the only version available on macOS
 - Default Value - `amd64`
 
