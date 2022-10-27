@@ -8,6 +8,10 @@
 
 ---
 
+**Note:**  An updated script with additional capabilities and multi-product support has been published to the [hashicorp-installer](https://github.com/robertpeteuil/hashicorp-installer) repo.
+
+---
+
 The **terraform-install** script automates the process of downloading and installing Terraform.  It provides an ideal method for installing installing updates or a specific version.
 
 This script detects the latest version, OS and CPU-Architecture and allows installation to local or system locations.  Optional parameters allow installing a specific version and installing to /usr/local/bin without prompting.
