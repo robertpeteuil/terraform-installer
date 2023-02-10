@@ -8,7 +8,7 @@
 
 ---
 
-**Note:**  An updated script with additional capabilities and multi-product support has been published to the [hashicorp-installer](https://github.com/robertpeteuil/hashicorp-installer) repo.
+**Note:**  An updated script with additional capabilities and multi-product support has been published to the [hashicorp-installer](https://github.com/robertpeteuil/hashicorp-installer) repo.  It defaults to installing Terraform and serve as a drop-in replacement of this script.
 
 ---
 
